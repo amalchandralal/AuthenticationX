@@ -1,10 +1,18 @@
+
+
 import { z } from "zod";
 
 const registerSchema = z.object({
-  name: z.string().min(2, "Name must be atleast 3 characters long"),
-  email: z.string().email().min(2, "Invalid email format"),
-  password: z.string()
-  .min("password must have atleast 8 characters long")
-  .regex(/[A-Z]/,"Password should have atleast one uppercase letter")
-  .regex(/[!@#$%^&*]/,"password should have atleast one special character.")
+  name: z.string().min(3, "name should have atleast 3 characters"),
+
+  email: z.string().email("invalid email format"),
+  password: z
+    .string()
+    .min(8,"pass must be atleast 8 characters")
+    .regex(/[A-Z]/, "should contain uppercase")
+    .regex(/[a-z]/, "should contain lowercase")
+    .regex(/[0-9]/, "should contain numbers")
+    .regex(/[!@#$%^&*]/, "should contain special character")
 });
+
+export default registerSchema;
